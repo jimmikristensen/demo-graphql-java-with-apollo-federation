@@ -1,4 +1,4 @@
-package deck_service;
+package deck;
 
 import graphql.schema.DataFetcher;
 import graphql.schema.DataFetchingEnvironment;

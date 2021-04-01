@@ -1,5 +1,5 @@
 applicationType: default
-defaultPackage: deck_service
+defaultPackage: deck
 testFramework: junit
 sourceLanguage: java
 buildTool: gradle

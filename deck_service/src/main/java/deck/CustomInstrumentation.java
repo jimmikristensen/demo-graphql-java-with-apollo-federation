@@ -1,4 +1,4 @@
-package deck_service;
+package deck;
 
 import graphql.ExecutionResult;
 import graphql.execution.instrumentation.InstrumentationContext;

@@ -1,9 +1,7 @@
-package deck_service;
+package deck;
 
 import com.apollographql.federation.graphqljava.Federation;
-import com.apollographql.federation.graphqljava.tracing.FederatedTracingInstrumentation;
 import graphql.GraphQL;
-import graphql.execution.instrumentation.tracing.TracingInstrumentation;
 import graphql.schema.GraphQLSchema;
 import graphql.schema.idl.RuntimeWiring;
 import graphql.schema.idl.SchemaGenerator;
@@ -17,7 +15,6 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 
 @Factory
 public class GraphQLFactory {

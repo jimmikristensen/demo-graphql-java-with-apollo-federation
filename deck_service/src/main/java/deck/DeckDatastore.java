@@ -1,4 +1,4 @@
-package deck_service;
+package deck;
 
 import javax.inject.Singleton;
 import java.util.*;

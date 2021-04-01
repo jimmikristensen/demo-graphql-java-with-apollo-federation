@@ -1,6 +1,6 @@
 micronaut:
   application:
-    name: deck_service
+    name: deck
   server:
     port: 8093
 
