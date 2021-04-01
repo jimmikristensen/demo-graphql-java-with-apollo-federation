@@ -3,7 +3,10 @@ micronaut:
     name: image
   server:
     port: 8092
-
+---
+logger:
+  levels:
+    entity: DEBUG
 ---
 graphql:
   enabled: true
