@@ -1,5 +1,6 @@
 package deck;
 
+import deck.schema.model.Deck;
 import graphql.schema.DataFetcher;
 import graphql.schema.DataFetchingEnvironment;
 

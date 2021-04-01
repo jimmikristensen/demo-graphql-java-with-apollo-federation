@@ -1,4 +1,4 @@
-package deck;
+package deck.schema.model;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ public class Deck {
     int deckId;
     List<Integer> guids;
 
-    Deck(int id, List<Integer> guids) {
+    public Deck(int id, List<Integer> guids) {
         this.deckId = id;
         this.guids = guids;
     }

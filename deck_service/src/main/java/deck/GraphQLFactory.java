@@ -1,6 +1,7 @@
 package deck;
 
 import com.apollographql.federation.graphqljava.Federation;
+import deck.schema.model.Deck;
 import graphql.GraphQL;
 import graphql.schema.GraphQLSchema;
 import graphql.schema.idl.RuntimeWiring;

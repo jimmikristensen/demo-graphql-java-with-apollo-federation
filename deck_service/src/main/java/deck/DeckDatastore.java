@@ -1,5 +1,7 @@
 package deck;
 
+import deck.schema.model.Deck;
+
 import javax.inject.Singleton;
 import java.util.*;
 
