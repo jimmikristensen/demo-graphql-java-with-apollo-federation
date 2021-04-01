@@ -3,7 +3,10 @@ micronaut:
     name: search
   server:
     port: 8091
-
+---
+logger:
+  levels:
+    entity: DEBUG
 ---
 graphql:
   enabled: true
