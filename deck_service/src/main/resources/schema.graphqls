@@ -1,0 +1,9 @@
+type Query {
+    deck(id: Int!): Deck
+}
+
+type Deck @key(fields: "deckId guids") {
+    deckId: Int!
+    guids: [Int]!
+}
+
