@@ -25,11 +25,7 @@ public class EntityDatastore {
         delay();
 
         LOGGER.debug("Lookup single entity: "+entityId);
-        Entity ety = entityList.get(entityId);
-        if (ety != null) {
-            return ety;
-        }
-        return null;
+        return entityList.get(entityId);
     }
 
     public List<Entity> lookupEntityIds(List<Integer> ids) {
