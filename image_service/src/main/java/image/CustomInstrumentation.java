@@ -1,4 +1,4 @@
-package image_service;
+package image;
 
 import graphql.ExecutionResult;
 import graphql.execution.instrumentation.InstrumentationContext;

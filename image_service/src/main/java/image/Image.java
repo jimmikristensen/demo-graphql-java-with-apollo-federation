@@ -1,4 +1,4 @@
-package image_service;
+package image;
 
 public class Image {
 

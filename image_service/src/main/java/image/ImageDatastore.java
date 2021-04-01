@@ -1,4 +1,4 @@
-package image_service;
+package image;
 
 import javax.inject.Singleton;
 import java.util.*;

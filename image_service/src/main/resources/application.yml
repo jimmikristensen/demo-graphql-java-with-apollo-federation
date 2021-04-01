@@ -1,6 +1,6 @@
 micronaut:
   application:
-    name: image_service
+    name: image
   server:
     port: 8092
 

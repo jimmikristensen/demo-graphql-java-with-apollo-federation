@@ -1,4 +1,4 @@
-package image_service;
+package image;
 
 import graphql.schema.DataFetcher;
 import graphql.schema.DataFetchingEnvironment;
