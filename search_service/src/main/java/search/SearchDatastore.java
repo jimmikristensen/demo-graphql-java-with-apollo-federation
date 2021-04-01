@@ -11,9 +11,9 @@ public class SearchDatastore {
 
     public SearchDatastore() {
         entityMap = new HashMap<>();
-        entityMap.put("Stormester", 0);
-        entityMap.put("Korpset", 1);
-        entityMap.put("Kardashians", 2);
+        entityMap.put("Blade Runner", 0);
+        entityMap.put("Revenge of the Nerds", 1);
+        entityMap.put("Computer Chronicles", 2);
     }
 
     public Search searchTitle(String title) {
