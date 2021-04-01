@@ -1,4 +1,4 @@
-package search_service;
+package search;
 
 import graphql.ExecutionResult;
 import graphql.execution.instrumentation.InstrumentationContext;

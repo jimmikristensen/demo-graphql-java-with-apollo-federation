@@ -1,4 +1,4 @@
-package search_service;
+package search;
 
 import graphql.schema.DataFetcher;
 import graphql.schema.DataFetchingEnvironment;

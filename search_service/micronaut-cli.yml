@@ -1,5 +1,5 @@
 applicationType: default
-defaultPackage: search_service
+defaultPackage: search
 testFramework: junit
 sourceLanguage: java
 buildTool: gradle

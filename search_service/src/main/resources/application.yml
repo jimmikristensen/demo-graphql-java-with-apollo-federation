@@ -1,6 +1,6 @@
 micronaut:
   application:
-    name: search_service
+    name: search
   server:
     port: 8091
 

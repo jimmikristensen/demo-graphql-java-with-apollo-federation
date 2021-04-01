@@ -5,7 +5,7 @@ plugins {
 }
 
 version "0.1"
-group "search_service"
+group "search"
 
 repositories {
     mavenCentral()
@@ -42,7 +42,7 @@ dependencies {
 
 test.classpath += configurations.developmentOnly
 
-mainClassName = "search_service.Application"
+mainClassName = "search.Application"
 
 // use JUnit 5 platform
 test {
@@ -60,7 +60,7 @@ tasks.withType(JavaCompile) {
         '-parameters',
         // enables incremental compilation
         '-Amicronaut.processing.incremental=true',
-        '-Amicronaut.processing.annotations=search_service.*',
+        '-Amicronaut.processing.annotations=search.*',
         "-Amicronaut.processing.group=$project.group",
         "-Amicronaut.processing.module=$project.name",
     ])
