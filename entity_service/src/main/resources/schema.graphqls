@@ -1,0 +1,21 @@
+type Query {
+    entity(guid: Int!): Entity
+    entities(guids: [Int!]!): [Entity]
+}
+
+type Entity @key(fields: "guid") {
+    guid: ID!
+    title: String
+    description: String
+}
+
+type Search @key(fields: "guids") @extends {
+    guids: [Int]! @external
+    entities: [Entity]!
+}
+
+type Deck @key(fields: "deckId guids") @extends {
+    deckId: Int! @external
+    guids: [Int]! @external
+    entities: [Entity]!
+}

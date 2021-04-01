@@ -1,0 +1,6 @@
+applicationType: default
+defaultPackage: entity
+testFramework: junit
+sourceLanguage: java
+buildTool: gradle
+features: [app-name, docker, file-watch, file-watch-osx, gradle, graphql, http-client, java, java-application, junit, logback, netty-server, readme, shade, yaml]
