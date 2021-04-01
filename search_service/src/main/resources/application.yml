@@ -1,0 +1,14 @@
+micronaut:
+  application:
+    name: search_service
+  server:
+    port: 8091
+
+---
+graphql:
+  enabled: true
+  path: /graphql
+  graphiql:
+    enabled: true
+    path: /graphiql
+    page-title: GraphiQL

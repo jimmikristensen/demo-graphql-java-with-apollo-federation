@@ -1,0 +1,8 @@
+type Query {
+    search(title: String!): Search
+}
+
+type Search @key(fields: "guids") {
+    guids: [Int]!
+}
+
