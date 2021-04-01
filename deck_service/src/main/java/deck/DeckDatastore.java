@@ -1,12 +1,16 @@
 package deck;
 
 import deck.schema.model.Deck;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Singleton;
 import java.util.*;
 
 @Singleton
 public class DeckDatastore {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(DeckDatastore.class);
 
     private List<Deck> deckList;
 
@@ -20,12 +24,8 @@ public class DeckDatastore {
     public Deck lookupDeckId(int deckId) {
         delay();
 
-        System.out.println("Lookup deck: "+deckId);
-        Deck deck = deckList.get(deckId);
-        if (deck != null) {
-            return deck;
-        }
-        return null;
+        LOGGER.debug("Lookup deck: "+deckId);
+        return deckList.get(deckId);
     }
 
     private void delay() {
