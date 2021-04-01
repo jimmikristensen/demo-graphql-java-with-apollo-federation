@@ -1,5 +1,7 @@
 package search;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import search.schema.model.Search;
 
 import javax.inject.Singleton;
@@ -8,6 +10,8 @@ import java.util.stream.Collectors;
 
 @Singleton
 public class SearchDatastore {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(SearchDatastore.class);
 
     private Map<String, Integer> entityMap;
 
@@ -21,7 +25,7 @@ public class SearchDatastore {
     public Search searchTitle(String title) {
         delay();
 
-        System.out.println("Search for title: "+title);
+        LOGGER.debug("Search for title: "+title);
         List<Integer> matches = entityMap.entrySet()
                 .stream()
                 .filter(entry -> entry.getKey().startsWith(title))
@@ -29,7 +33,7 @@ public class SearchDatastore {
                 .collect(Collectors.toList());
 
         Search searchResult = new Search(matches);
-        System.out.println("Search result: "+searchResult);
+        LOGGER.debug("Search result: "+searchResult);
 
         return searchResult;
     }

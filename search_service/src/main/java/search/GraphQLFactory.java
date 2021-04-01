@@ -10,6 +10,8 @@ import graphql.schema.idl.TypeDefinitionRegistry;
 import io.micronaut.context.annotation.Bean;
 import io.micronaut.context.annotation.Factory;
 import io.micronaut.core.io.ResourceResolver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import search.schema.model.Search;
 
 import javax.inject.Inject;
@@ -20,6 +22,8 @@ import java.util.ArrayList;
 
 @Factory
 public class GraphQLFactory {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(GraphQLFactory.class);
 
     @Inject
     SearchDatastore searchDatastore;
@@ -47,11 +51,11 @@ public class GraphQLFactory {
 
         GraphQLSchema graphQLSchema = Federation.transform(typeRegistry, runtimeWiring).resolveEntityType(env -> {
             // Does not extend another schema, so we always return this schema object
-            System.out.println("Resolve entity type: "+env.getObject());
+            LOGGER.debug("Resolve entity type: "+env.getObject());
             return env.getSchema().getObjectType("Search");
         }).fetchEntities(env -> {
             // Does not extend another schema, so we always return this object
-            System.out.println("Fetch Entity");
+            LOGGER.debug("Fetch Entity");
             return new Search(new ArrayList<>());
         }).build();
 
@@ -64,7 +68,7 @@ public class GraphQLFactory {
             return Integer.parseInt((String) idObj);
         } catch (NumberFormatException e) {
             // log number format error in real app
-            System.out.println(e.getMessage());
+            LOGGER.error(e.getMessage(), e);
         }
         return 0;
     }
