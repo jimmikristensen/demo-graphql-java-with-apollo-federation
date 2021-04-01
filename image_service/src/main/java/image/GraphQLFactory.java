@@ -13,6 +13,8 @@ import image.schema.model.extended.Entity;
 import io.micronaut.context.annotation.Bean;
 import io.micronaut.context.annotation.Factory;
 import io.micronaut.core.io.ResourceResolver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -24,6 +26,8 @@ import java.util.stream.Collectors;
 
 @Factory
 public class GraphQLFactory {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(GraphQLFactory.class);
 
     @Inject
     ImageDatastore imageDatastore;
@@ -51,7 +55,7 @@ public class GraphQLFactory {
 
         GraphQLSchema graphQLSchema = Federation.transform(typeRegistry, runtimeWiring).resolveEntityType(env -> {
             final Object src = env.getObject();
-            System.out.println("Resolve entity type: "+src);
+            LOGGER.debug("Resolve entity type: "+src);
             if (src instanceof Entity) {
                 return env.getSchema().getObjectType("Entity");
             }
@@ -62,7 +66,7 @@ public class GraphQLFactory {
         }).fetchEntities(env -> env.<List<Map<String, Object>>>getArgument(_Entity.argumentName)
                 .stream()
                 .map(values -> {
-                    System.out.println("Fetch Entity: "+values.get("__typename"));
+                    LOGGER.debug("Fetch Entity: "+values.get("__typename"));
                     if ("Entity".equals(values.get("__typename"))) {
                         final Object guid = values.get("guid");
                         if (guid instanceof String) {
@@ -88,7 +92,7 @@ public class GraphQLFactory {
             return Integer.parseInt((String) idObj);
         } catch (NumberFormatException e) {
             // log number format error in real app
-            System.out.println(e.getMessage());
+            LOGGER.error(e.getMessage(), e);
         }
         return 0;
     }

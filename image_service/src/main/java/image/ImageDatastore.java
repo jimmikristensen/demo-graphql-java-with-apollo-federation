@@ -1,12 +1,16 @@
 package image;
 
 import image.schema.model.Image;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.inject.Singleton;
 import java.util.*;
 
 @Singleton
 public class ImageDatastore {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ImageDatastore.class);
 
     private Map<Integer, List<Image>> entityImages;
     private Map<Integer, Image> bgImages;
@@ -33,7 +37,7 @@ public class ImageDatastore {
     public List<Image> lookupImageByEntityGuid(int entityId) {
         delay();
 
-        System.out.println("Lookup images for entity: "+entityId);
+        LOGGER.debug("Lookup images for entity: "+entityId);
         List<Image> acts = entityImages.get(entityId);
         if (acts != null) {
             return entityImages.get(entityId);
@@ -44,7 +48,7 @@ public class ImageDatastore {
     public Image lookupBGImageByDeckId(int deckId) {
         delay();
 
-        System.out.println("Lookup background images for deck: "+deckId);
+        LOGGER.debug("Lookup background images for deck: "+deckId);
         return bgImages.get(deckId);
     }
 
