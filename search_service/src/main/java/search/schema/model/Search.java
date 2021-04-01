@@ -1,4 +1,4 @@
-package search;
+package search.schema.model;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ public class Search {
 
     List<Integer> guids;
 
-    Search(List<Integer> guids) {
+    public Search(List<Integer> guids) {
         this.guids = guids;
     }
 

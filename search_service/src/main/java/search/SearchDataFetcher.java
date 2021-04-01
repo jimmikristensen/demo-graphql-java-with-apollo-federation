@@ -2,6 +2,7 @@ package search;
 
 import graphql.schema.DataFetcher;
 import graphql.schema.DataFetchingEnvironment;
+import search.schema.model.Search;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

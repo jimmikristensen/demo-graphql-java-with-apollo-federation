@@ -1,5 +1,7 @@
 package search;
 
+import search.schema.model.Search;
+
 import javax.inject.Singleton;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -34,7 +36,7 @@ public class SearchDatastore {
 
     private void delay() {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(0);
         } catch (InterruptedException e) {}
     }
 
