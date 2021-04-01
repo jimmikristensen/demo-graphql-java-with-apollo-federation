@@ -1,0 +1,20 @@
+type Query {
+    images(id: Int!): [Image]
+}
+
+type Image {
+    imageId: ID!
+    url: String
+    type: String
+}
+
+type Entity @key(fields: "guid") @extends {
+    guid: ID! @external
+    images: [Image]
+}
+
+type Deck @key(fields: "deckId guids") @extends {
+    deckId: Int! @external
+    guids: [Int]! @external
+    backgroundImage: Image
+}
