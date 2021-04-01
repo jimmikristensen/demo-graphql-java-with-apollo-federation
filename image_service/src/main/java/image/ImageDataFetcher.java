@@ -2,6 +2,7 @@ package image;
 
 import graphql.schema.DataFetcher;
 import graphql.schema.DataFetchingEnvironment;
+import image.schema.model.Image;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

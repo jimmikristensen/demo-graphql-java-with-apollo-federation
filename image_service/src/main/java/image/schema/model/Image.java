@@ -1,4 +1,4 @@
-package image;
+package image.schema.model;
 
 public class Image {
 
@@ -6,7 +6,7 @@ public class Image {
     String url;
     String type;
 
-    Image(int imageId, String url, String type) {
+    public Image(int imageId, String url, String type) {
         this.imageId = imageId;
         this.url = url;
         this.type = type;

@@ -1,4 +1,6 @@
-package image;
+package image.schema.model.extended;
+
+import image.schema.model.Image;
 
 import java.util.List;
 
@@ -6,7 +8,7 @@ public class Entity {
 
     List<Image> images;
 
-    Entity(List<Image> images) {
+    public Entity(List<Image> images) {
         this.images = images;
     }
 

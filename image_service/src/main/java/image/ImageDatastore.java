@@ -1,5 +1,7 @@
 package image;
 
+import image.schema.model.Image;
+
 import javax.inject.Singleton;
 import java.util.*;
 
@@ -48,7 +50,7 @@ public class ImageDatastore {
 
     private void delay() {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(0);
         } catch (InterruptedException e) {}
     }
 }

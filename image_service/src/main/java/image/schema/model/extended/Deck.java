@@ -1,10 +1,12 @@
-package image;
+package image.schema.model.extended;
+
+import image.schema.model.Image;
 
 public class Deck {
 
     Image backgroundImage;
 
-    Deck(Image backgroundImage) {
+    public Deck(Image backgroundImage) {
         this.backgroundImage = backgroundImage;
     }
 
