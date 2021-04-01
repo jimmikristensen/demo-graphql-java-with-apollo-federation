@@ -3,7 +3,10 @@ micronaut:
     name: deck
   server:
     port: 8093
-
+---
+logger:
+  levels:
+    deck: DEBUG
 ---
 graphql:
   enabled: true
