@@ -30,24 +30,56 @@ Each downstream Java (Micronaut) service is responsible of exposing its context 
 
 * Preparing your GraphQL server for federation
 
-/I am going to assume you already are familiar with setting up a regular GraphQL server with Micronaut, if not I suggest you try that first. 
+** Start by setting up a regular GraphQL Java server
+
+/I am going to assume you already are familiar with setting up a regular GraphQL server with Micronaut, if not do that first.
 Below are useful links for the documentation and an example application:/
 
 - [[https://micronaut-projects.github.io/micronaut-graphql/snapshot/guide/index.html][Micronaut GraphQL Integration]]
 - [[https://github.com/micronaut-projects/micronaut-graphql/tree/master/examples/hello-world-java][Micronaut GraphQL Hello World Java example]]
-
-** Start by setting up a regular GraphQL Java server
-
-Find the documentation on how to setup a Java GraphQL server in the docs:
-
-[[https://www.graphql-java.com/documentation/v16/][GraphQL Java Documentation]]
+- [[https://www.graphql-java.com/documentation/v16/][GraphQL Java Documentation]]
 
 ** Federate your GraphQL Java server
 
-For this you need to add a dependency to /federation-graphql-java-support/ in the *build.gradle* file:
+/For a general introduction to Apollo Federation I suggest you read [[https://www.apollographql.com/docs/federation/][Introduction to Apollo Federation]]/
+
+As stated in the documentation ([[https://github.com/apollographql/federation-jvm][Apollo Federation on the JVM]]), for this you need to add a dependency to /federation-graphql-java-support/ in the *build.gradle* file:
 
 #+begin_src java
 dependencies {
     implementation 'com.apollographql.federation:federation-graphql-java-support:<add_the_newest_version>'
+}
+#+end_src
+
+In the documentaion [[https://micronaut-projects.github.io/micronaut-graphql/latest/guide/][Micronaut GraphQL Integration]] you were instructed to create a /GraphQLFactory/ containing 4 steps:
+
+#+begin_src java
+@Factory 
+public class GraphQLFactory {
+
+    @Bean
+    @Singleton
+    public GraphQL graphQL(ResourceResolver resourceResolver, HelloDataFetcher helloDataFetcher) {
+
+        SchemaParser schemaParser = new SchemaParser();
+        SchemaGenerator schemaGenerator = new SchemaGenerator();
+
+        // Parse the schema.
+        TypeDefinitionRegistry typeRegistry = new TypeDefinitionRegistry();
+        typeRegistry.merge(schemaParser.parse(new BufferedReader(new InputStreamReader(
+                resourceResolver.getResourceAsStream("classpath:schema.graphqls").get()))));
+
+        // Create the runtime wiring.
+        RuntimeWiring runtimeWiring = RuntimeWiring.newRuntimeWiring()
+                .type("Query", typeWiring -> typeWiring
+                        .dataFetcher("hello", helloDataFetcher))
+                .build();
+
+        // Create the executable schema.
+        GraphQLSchema graphQLSchema = schemaGenerator.makeExecutableSchema(typeRegistry, runtimeWiring);
+
+        // Return the GraphQL bean.
+        return GraphQL.newGraphQL(graphQLSchema).build();
+    }
 }
 #+end_src
