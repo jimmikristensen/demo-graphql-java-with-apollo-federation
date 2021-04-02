@@ -1,13 +1,20 @@
 #+title: GraphQL Federation Demo (Java + Apollo Gateway)
 #+author: Jimmi
 
-This repository presents a demo that composes the distinct schemas of Java GraphQL servers into a federated data graph with Apollo Gateway.
+This repository presents a demo that composes the distinct schemas of Java (Micronaut) GraphQL servers into a federated data graph with Apollo Gateway.
+
+The purpose of this demo is to demonstrate how it is possible to support GraphQL Schema Federation with the Micronaut framework.
+
+The demo application is a fake service that is able to serve information on movies and series from a few downstream GraphQL servers through an Apollo Gateway (Federated gateway). 
+The diagram below illustrates the architecture of this demo application.
+
+Each downstream Java (Micronaut) service is responsible of exposing its context through the service destinct GraphQL schema:
+
+* *Entity Service* serves information on movies and series through its schema
+* *Search Service* handles searches on movies and series through its schena
+* *Image Service* serves images belonging to either a movie, series or a background of a deck through its schema
+* *Deck Service* serves collections of movies and series through its schema
 
 [[https://raw.githubusercontent.com/jimmikristensen/demo-graphql-java-with-apollo-federation/main/Micronaut%20GraphQL%20Demo.jpeg]]
 
-* Test
-** Test2
 
-* Test3
-
-** test4
