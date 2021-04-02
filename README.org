@@ -184,11 +184,11 @@ npm install
 npm run start
 #+end_src
 
-The gateway should now be starte up and connected to the downstream Java services.
+The gateway should now be started up and connected to the downstream Java services.
 
 ** Querying the services
 
-As each Java (Micronaut) service expose their own part of the complete data graph, it is possible to run queries on each service:
+As each Java (Micronaut) service expose their own part of the complete data graph, it is possible to run queries against each service:
 
 - Entity Service: [[http://localhost:8090/graphiql]]
 - Search Service: [[http://localhost:8091/graphiql]]
