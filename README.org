@@ -143,39 +143,58 @@ You can run the demo using docker-compose or by starting each application your s
 
 ** Using docker-compose
 
-Build each of the Java applications:
+*Build each of the Java applications:*
 
 #+begin_src shell
 cd entity_service
 ./gradlew clean build
 #+end_src
 
-Do this for each of the Java applications (entity_service, search_service, image_service, deck_service).
+Do this for each of the Java applications (/entity_service, search_service, image_service, deck_service/).
 
+*Start the docker containers*
 
+From withing the root of the git repository (the directory containing the docker-compose.yml), run the following command:
 
-
-
-# A line comment
-
-Example of an @@comment:inline@@ comment.
-
-Inline comments are used for end of line comments. @@comment:~#~ won't
-work@@ Since # only only works if preceeded by a newline follow by
-whitespace.
-
-#+begin_comment
-This is a block comment.
-It can span multiple line.
-As well as other markup.
-#+begin_src emacs-lisp
-(+ 1 2)
+#+begin_src shell
+docker-compose up
 #+end_src
-#+end_comment
 
-* A top level headline
-** COMMENT This section and subsections are commented out
-*** This headline inherits the =COMMENT= keyword
-This text is commented out
-** This headline is not commented
-This text will be exported and code blocks will run.
+After the docker images has been build, they should start up and be ready for requests.
+
+** Starting up manually
+
+*Start up the Java (Micronaut) services*
+
+Open a new shell for each of the services (/entity_service, search_service, image_service, deck_service/) and repeat the following command in each service directory to start them up:
+
+#+begin_src shell
+cd entity_service
+./gradlew clean build
+./gradlew run
+#+end_src
+
+*Start the Apollo Gateway*
+
+In a fifth shell run the following to start up the Apollo gateway:
+
+#+begin_src shell
+cd apollo_gateway
+npm install
+npm run start
+#+end_src
+
+The gateway should now be starte up and connected to the downstream Java services.
+
+** Querying the services
+
+As each Java (Micronaut) service expose their own part of the complete data graph, it is possible to run queries on each service:
+
+- Entity Service: http://localhost:8090/graphiql
+- Search Service: http://localhost:8091/graphiql
+- Image Service: http://localhost:8092/graphiql
+- Deck Service: http://localhost:8093/graphiql
+
+To query the complete federated graph, run your queries against the Apollo Gateway:
+
+- Apollo Gateway: http://localhost:4000/
