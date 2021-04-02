@@ -91,7 +91,7 @@ Converting that /GraphQLFactory/ to support federation is quite similar to the a
 3) *But instead of* using /schemaGenerator.makeExecutableSchema/ to generate a /GraphQLSchema/, you use /Federation.transform/ like below:
 4) Return the /GraphQLSchema/ with federation support instead
 
-Esample from [[https://github.com/jimmikristensen/demo-graphql-java-with-apollo-federation/blob/main/entity_service/src/main/java/entity/GraphQLFactory.java][entity_service]]:
+Example from [[https://github.com/jimmikristensen/demo-graphql-java-with-apollo-federation/blob/main/entity_service/src/main/java/entity/GraphQLFactory.java][entity_service]]:
 
 #+begin_src java
 // Resolve entity types (A)
@@ -136,3 +136,46 @@ B) A /DataFetcher/ or /DataFetcherFactory/ for *_entities* using /SchemaTransfor
    - This time we use the /DataFetchingEnvironment/ to get the *__typename* to find out which type we need to find a data fetcher for
    - If that *__typename* matches Search we use the /DataFetchingEnvironment/ to get the *external* key value from the Search service, in this case *guids*
    - Lastly, we return a *Search* object populated with the list of *Entities*
+
+* Running the demo
+
+You can run the demo using docker-compose or by starting each application your self.
+
+** Using docker-compose
+
+Build each of the Java applications:
+
+#+begin_src shell
+cd entity_service
+./gradlew clean build
+#+end_src
+
+Do this for each of the Java applications (entity_service, search_service, image_service, deck_service).
+
+
+
+
+
+# A line comment
+
+Example of an @@comment:inline@@ comment.
+
+Inline comments are used for end of line comments. @@comment:~#~ won't
+work@@ Since # only only works if preceeded by a newline follow by
+whitespace.
+
+#+begin_comment
+This is a block comment.
+It can span multiple line.
+As well as other markup.
+#+begin_src emacs-lisp
+(+ 1 2)
+#+end_src
+#+end_comment
+
+* A top level headline
+** COMMENT This section and subsections are commented out
+*** This headline inherits the =COMMENT= keyword
+This text is commented out
+** This headline is not commented
+This text will be exported and code blocks will run.
