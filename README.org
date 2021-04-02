@@ -91,13 +91,18 @@ Converting that /GraphQLFactory/ to support federation is quite similar to the a
 3) *But instead of* using /schemaGenerator.makeExecutableSchema/ to generate a /GraphQLSchema/, you use /Federation.transform/ like below:
 4) Return the /GraphQLSchema/ with federation support instead
 
+Esample from [[https://github.com/jimmikristensen/demo-graphql-java-with-apollo-federation/blob/main/entity_service/src/main/java/entity/GraphQLFactory.java][entity_service]]:
+
 #+begin_src java
-GraphQLSchema graphQLSchema = Federation.transform(typeRegistry, runtimeWiring).resolveEntityType(env -> { (A)
+// Resolve entity types (A)
+GraphQLSchema graphQLSchema = Federation.transform(typeRegistry, runtimeWiring).resolveEntityType(env -> {
     final Object src = env.getObject();
     if (src instanceof Search) {
         return env.getSchema().getObjectType("Search");
     }
     return null;
+
+// Decleare datafetcher for _entities (B)
 }).fetchEntities(env -> env.<List<Map<String, Object>>>getArgument(_Entity.argumentName)
     .stream()
     .map(values -> {
@@ -111,5 +116,23 @@ GraphQLSchema graphQLSchema = Federation.transform(typeRegistry, runtimeWiring).
     }
 ).collect(Collectors.toList())).build();
 
+// Return the federation enabled schema (C)
 return GraphQL.newGraphQL(graphQLSchema).instrumentation(new CustomInstrumentation()).build();
 #+end_src
+
+As the Entity service extends the Search object declared in the [[https://github.com/jimmikristensen/demo-graphql-java-with-apollo-federation/blob/main/search_service/src/main/resources/schema.graphqls][Search]] service it therefore declares a type with the *@key* annotation in its [[https://github.com/jimmikristensen/demo-graphql-java-with-apollo-federation/blob/main/entity_service/src/main/resources/schema.graphqls][schema.graphql]] file.
+All types annotated with *@key* will be part of the *_Entity* union type, and reachable through:
+
+#+begin_src json
+query { _entities(representations: [Any!]!) { … } }
+#+end_src
+
+Before calling the /build()/ method, we will also need to provide:
+
+A) A /TypeResolver/ for *_Entity* using /SchemaTransformer#resolveEntityType(TypeResolver)/
+   - We use the /TypeResolutionEnvironment/ to get the specific source object that needs to be resolved
+   - If the source object is an instance of /Search/ we return the /GraphQLObjectType/ of Search from the schema
+B) A /DataFetcher/ or /DataFetcherFactory/ for *_entities* using /SchemaTransformer#fetchEntities(DataFetcher|DataFetcherFactory)/
+   - This time we use the /DataFetchingEnvironment/ to get the *__typename* to find out which type we need to find a data fetcher for
+   - If that *__typename* matches Search we use the /DataFetchingEnvironment/ to get the *external* key value from the Search service, in this case *guids*
+   - Lastly, we return a *Search* object populated with the list of *Entities*
