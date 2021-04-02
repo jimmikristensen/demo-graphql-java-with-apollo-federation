@@ -1,7 +1,9 @@
-#+title: GraphQL Federation demo with Java services and Apollo Gateway
+#+title: GraphQL Federation Demo (Java + Apollo Gateway)
 #+author: Jimmi
 
 This repository presents a demo that composes the distinct schemas of Java GraphQL servers into a federated data graph with Apollo Gateway.
+
+[[https://raw.githubusercontent.com/jimmikristensen/demo-graphql-java-with-apollo-federation/main/Micronaut%20GraphQL%20Demo.jpeg]]
 
 * Test
 ** Test2
