@@ -45,9 +45,10 @@ public class GraphQLFactory {
                         .dataFetcher("deck", deckDataFetcher))
                 .build();
 
-        // Create the executable schema.
+        // Instead of creating the executable schema like below
 //        GraphQLSchema graphQLSchema = schemaGenerator.makeExecutableSchema(typeRegistry, runtimeWiring);
 
+        // Create a federated schema like this
         GraphQLSchema graphQLSchema = Federation.transform(typeRegistry, runtimeWiring).resolveEntityType(env -> {
             // Does not extend another schema, so we always return this schema object
             LOGGER.debug("Resolve entity type: "+env.getObject());

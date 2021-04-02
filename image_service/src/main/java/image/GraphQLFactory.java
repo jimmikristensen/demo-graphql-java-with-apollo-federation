@@ -50,9 +50,10 @@ public class GraphQLFactory {
                         .dataFetcher("images", imageDataFetcher))
                 .build();
 
-        // Create the executable schema.
+        // Instead of creating the executable schema like below
 //        GraphQLSchema graphQLSchema = schemaGenerator.makeExecutableSchema(typeRegistry, runtimeWiring);
 
+        // Create a federated schema like this
         GraphQLSchema graphQLSchema = Federation.transform(typeRegistry, runtimeWiring).resolveEntityType(env -> {
             final Object src = env.getObject();
             LOGGER.debug("Resolve entity type: "+src);
