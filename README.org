@@ -11,13 +11,13 @@ The diagram below illustrates the architecture of this demo application.
 Each downstream Java (Micronaut) service is responsible of exposing its context through the service destinct GraphQL schema:
 
 - *Entity Service* serves information on movies and series through its schema
--- [[https://github.com/jimmikristensen/demo-graphql-java-with-apollo-federation/tree/main/entity_service][entity_service]]
+  - [[https://github.com/jimmikristensen/demo-graphql-java-with-apollo-federation/tree/main/entity_service][entity_service]]
 - *Search Service* handles searches on movies and series through its schena
--- [[https://github.com/jimmikristensen/demo-graphql-java-with-apollo-federation/tree/main/search_service][search_service]]
+  - [[https://github.com/jimmikristensen/demo-graphql-java-with-apollo-federation/tree/main/search_service][search_service]]
 - *Image Service* serves images belonging to either a movie, series or a background of a deck through its schema
--- [[https://github.com/jimmikristensen/demo-graphql-java-with-apollo-federation/tree/main/image_service][image_service]]
+  - [[https://github.com/jimmikristensen/demo-graphql-java-with-apollo-federation/tree/main/image_service][image_service]]
 - *Deck Service* serves collections of movies and series through its schema
--- [[https://github.com/jimmikristensen/demo-graphql-java-with-apollo-federation/tree/main/deck_service][deck_service]]
+  - [[https://github.com/jimmikristensen/demo-graphql-java-with-apollo-federation/tree/main/deck_service][deck_service]]
 
 [[https://raw.githubusercontent.com/jimmikristensen/demo-graphql-java-with-apollo-federation/main/Micronaut%20GraphQL%20Demo.jpeg]]
 
