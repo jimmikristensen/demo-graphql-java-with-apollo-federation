@@ -11,9 +11,13 @@ The diagram below illustrates the architecture of this demo application.
 Each downstream Java (Micronaut) service is responsible of exposing its context through the service destinct GraphQL schema:
 
 - *Entity Service* serves information on movies and series through its schema
+-- [[https://github.com/jimmikristensen/demo-graphql-java-with-apollo-federation/tree/main/entity_service][entity_service]]
 - *Search Service* handles searches on movies and series through its schena
+-- [[https://github.com/jimmikristensen/demo-graphql-java-with-apollo-federation/tree/main/search_service][search_service]]
 - *Image Service* serves images belonging to either a movie, series or a background of a deck through its schema
+-- [[https://github.com/jimmikristensen/demo-graphql-java-with-apollo-federation/tree/main/image_service][image_service]]
 - *Deck Service* serves collections of movies and series through its schema
+-- [[https://github.com/jimmikristensen/demo-graphql-java-with-apollo-federation/tree/main/deck_service][deck_service]]
 
 [[https://raw.githubusercontent.com/jimmikristensen/demo-graphql-java-with-apollo-federation/main/Micronaut%20GraphQL%20Demo.jpeg]]
 
@@ -29,6 +33,21 @@ Each downstream Java (Micronaut) service is responsible of exposing its context 
 /I am going to assume you already are familiar with setting up a regular GraphQL server with Micronaut, if not I suggest you try that first. 
 Below are useful links for the documentation and an example application:/
 
-- [https://micronaut-projects.github.io/micronaut-graphql/snapshot/guide/index.html][Micronaut GraphQL Integration]]
+- [[https://micronaut-projects.github.io/micronaut-graphql/snapshot/guide/index.html][Micronaut GraphQL Integration]]
 - [[https://github.com/micronaut-projects/micronaut-graphql/tree/master/examples/hello-world-java][Micronaut GraphQL Hello World Java example]]
-- [[https://orgmode.org][a nice website]]
+
+** Start by setting up a regular GraphQL Java server
+
+Find the documentation on how to setup a Java GraphQL server in the docs:
+
+[[https://www.graphql-java.com/documentation/v16/][GraphQL Java Documentation]]
+
+** Federate your GraphQL Java server
+
+For this you need to add a dependency to /federation-graphql-java-support/ in the *build.gradle* file:
+
+#+begin_src java
+dependencies {
+    implementation 'com.apollographql.federation:federation-graphql-java-support:<add_the_newest_version>'
+}
+#+end_src
