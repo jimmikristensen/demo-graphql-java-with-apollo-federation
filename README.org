@@ -64,22 +64,52 @@ public class GraphQLFactory {
         SchemaParser schemaParser = new SchemaParser();
         SchemaGenerator schemaGenerator = new SchemaGenerator();
 
-        // Parse the schema.
+        // Parse the schema. (1)
         TypeDefinitionRegistry typeRegistry = new TypeDefinitionRegistry();
         typeRegistry.merge(schemaParser.parse(new BufferedReader(new InputStreamReader(
                 resourceResolver.getResourceAsStream("classpath:schema.graphqls").get()))));
 
-        // Create the runtime wiring.
+        // Create the runtime wiring. (2)
         RuntimeWiring runtimeWiring = RuntimeWiring.newRuntimeWiring()
                 .type("Query", typeWiring -> typeWiring
                         .dataFetcher("hello", helloDataFetcher))
                 .build();
 
-        // Create the executable schema.
+        // Create the executable schema. (3)
         GraphQLSchema graphQLSchema = schemaGenerator.makeExecutableSchema(typeRegistry, runtimeWiring);
 
-        // Return the GraphQL bean.
+        // Return the GraphQL bean. (4)
         return GraphQL.newGraphQL(graphQLSchema).build();
     }
 }
+#+end_src
+
+Converting that /GraphQLFactory/ to support federation is quite similar to the above:
+
+1) Parse the schema file residing in the classpath, e.g. in the resources dir
+2) Create the runtime wiring where you declare your data fetchers for the corresponding fields
+3) *But instead of* using /schemaGenerator.makeExecutableSchema/ to generate a /GraphQLSchema/, you use /Federation.transform/ like below:
+4) Return the /GraphQLSchema/ with federation support instead
+
+#+begin_src java
+GraphQLSchema graphQLSchema = Federation.transform(typeRegistry, runtimeWiring).resolveEntityType(env -> { (A)
+    final Object src = env.getObject();
+    if (src instanceof Search) {
+        return env.getSchema().getObjectType("Search");
+    }
+    return null;
+}).fetchEntities(env -> env.<List<Map<String, Object>>>getArgument(_Entity.argumentName)
+    .stream()
+    .map(values -> {
+        if ("Search".equals(values.get("__typename"))) {
+            final Object guids = values.get("guids");
+            if (guids instanceof List) {
+                return new Search(entityDatastore.lookupEntityIds(convertObjectToIntegerList(guids)));
+            }
+        }
+        return null;
+    }
+).collect(Collectors.toList())).build();
+
+return GraphQL.newGraphQL(graphQLSchema).instrumentation(new CustomInstrumentation()).build();
 #+end_src
