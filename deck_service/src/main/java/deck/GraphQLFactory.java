@@ -49,15 +49,11 @@ public class GraphQLFactory {
 //        GraphQLSchema graphQLSchema = schemaGenerator.makeExecutableSchema(typeRegistry, runtimeWiring);
 
         // Create a federated schema like this
-        GraphQLSchema graphQLSchema = Federation.transform(typeRegistry, runtimeWiring).resolveEntityType(env -> {
-            // Does not extend another schema, so we always return this schema object
-            LOGGER.debug("Resolve entity type: "+env.getObject());
-            return env.getSchema().getObjectType("Deck");
-        }).fetchEntities(env -> {
-            // Does not extend another schema, so we always return this object
-            LOGGER.debug("Fetch Entity");
-            return new Deck(0,null);
-        }).build();
+        // NOTE that the resolver and fetcher simply returns NULL as this service does not @extends other schema objects
+        // All queries for this service are handled by the runtimeWiring
+        GraphQLSchema graphQLSchema = Federation.transform(typeRegistry, runtimeWiring)
+                .resolveEntityType(env -> null)
+                .fetchEntities(env -> null).build();
 
         // Return the GraphQL bean.
         return GraphQL.newGraphQL(graphQLSchema).instrumentation(new CustomInstrumentation()).build();
