@@ -123,7 +123,7 @@ return GraphQL.newGraphQL(graphQLSchema).instrumentation(new CustomInstrumentati
 As the Entity service extends the Search object declared in the [[https://github.com/jimmikristensen/demo-graphql-java-with-apollo-federation/blob/main/search_service/src/main/resources/schema.graphqls][Search]] service it therefore declares a type with the *@key* annotation in its [[https://github.com/jimmikristensen/demo-graphql-java-with-apollo-federation/blob/main/entity_service/src/main/resources/schema.graphqls][schema.graphql]] file.
 All types annotated with *@key* will be part of the *_Entity* union type, and reachable through:
 
-#+begin_src json
+#+begin_src
 query { _entities(representations: [Any!]!) { … } }
 #+end_src
 
