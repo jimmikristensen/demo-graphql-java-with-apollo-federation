@@ -87,8 +87,8 @@ public class GraphQLFactory {
 Converting that /GraphQLFactory/ to support federation is quite similar to the above:
 
 1) Parse the schema file residing in the classpath, e.g. in the resources dir
-2) Create the runtime wiring where you declare your data fetchers for the corresponding fields
-3) *But instead of* using /schemaGenerator.makeExecutableSchema/ to generate a /GraphQLSchema/, you use /Federation.transform/ like below:
+2) Create the runtime wiring where you declare your data fetchers for the corresponding fields (/this is the none-federation part/)
+3) *But instead of* using /schemaGenerator.makeExecutableSchema/ to generate a /GraphQLSchema/, you use /Federation.transform/ like below (/the federation part/):
 4) Return the /GraphQLSchema/ with federation support instead
 
 Example from [[https://github.com/jimmikristensen/demo-graphql-java-with-apollo-federation/blob/main/entity_service/src/main/java/entity/GraphQLFactory.java][entity_service]]:
@@ -124,7 +124,7 @@ All types annotated with *@key* will be part of the *_Entity* union type, and re
 query { _entities(representations: [Any!]!) { … } }
 #+end_src
 
-Before calling the /build()/ method, we will also need to provide:
+Before calling the /build()/ method, we will therefore need to provide:
 
 A) A /TypeResolver/ for *_Entity* using /SchemaTransformer#resolveEntityType(TypeResolver)/
    - We use the /TypeResolutionEnvironment/ to get the specific source object that needs to be resolved
@@ -133,6 +133,9 @@ B) A /DataFetcher/ or /DataFetcherFactory/ for *_entities* using /SchemaTransfor
    - This time we use the /DataFetchingEnvironment/ to get the *__typename* to find out which type we need to find a data fetcher for
    - If that *__typename* matches Search we use the /DataFetchingEnvironment/ to get the *external* key value from the Search service, in this case *guids*
    - Lastly, we return a *Search* object populated with the list of *Entities*
+
+To get a better understanding of how schemas are extending each other I suggest you look through the *resources/schema.graphql* files of each Micronaut application. 
+And to see how data for these extended objects are populated you should see through the *GraphQLFactory.class* files of each Micronaut application.
 
 * Running the demo
 
