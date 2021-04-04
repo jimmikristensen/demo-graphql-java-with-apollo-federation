@@ -107,10 +107,7 @@ GraphQLSchema graphQLSchema = Federation.transform(typeRegistry, runtimeWiring).
     .stream()
     .map(values -> {
         if ("Search".equals(values.get("__typename"))) {
-            final Object guids = values.get("guids");
-            if (guids instanceof List) {
-                return new Search(entityDatastore.lookupEntityIds(convertObjectToIntegerList(guids)));
-            }
+            return new Search(entityListDataFetcher.get(env));
         }
         return null;
     }
