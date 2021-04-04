@@ -31,9 +31,6 @@ public class GraphQLFactory {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GraphQLFactory.class);
 
-    @Inject
-    EntityDatastore entityDatastore;
-
     @Bean
     @Singleton
     public GraphQL graphQL(ResourceResolver resourceResolver, EntityDataFetcher entityDataFetcher, EntityListDataFetcher entityListDataFetcher) {
@@ -75,17 +72,11 @@ public class GraphQLFactory {
                     LOGGER.debug("Fetch Entity: "+values.get("__typename"));
 
                     if ("Search".equals(values.get("__typename"))) {
-                        final Object guids = values.get("guids");
-                        if (guids instanceof List) {
-                            return new Search(entityDatastore.lookupEntityIds(convertObjectToIntegerList(guids)));
-                        }
+                        return new Search(entityListDataFetcher.get(env));
                     }
 
                     if ("Deck".equals(values.get("__typename"))) {
-                        final Object guids = values.get("guids");
-                        if (guids instanceof List) {
-                            return new Deck(entityDatastore.lookupEntityIds(convertObjectToIntegerList(guids)));
-                        }
+                        return new Deck(entityListDataFetcher.get(env));
                     }
 
                     return null;
@@ -93,15 +84,5 @@ public class GraphQLFactory {
 
         // Return the GraphQL bean.
         return GraphQL.newGraphQL(graphQLSchema).instrumentation(new CustomInstrumentation()).build();
-    }
-
-    private List<Integer> convertObjectToIntegerList(Object obj) {
-        try {
-            return (List<Integer>) obj;
-        } catch (Exception e) {
-            // log number format error in real app
-            LOGGER.error(e.getMessage(), e);
-        }
-        return new ArrayList<>();
     }
 }
