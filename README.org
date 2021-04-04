@@ -137,6 +137,8 @@ B) A /DataFetcher/ or /DataFetcherFactory/ for *_entities* using /SchemaTransfor
 To get a better understanding of how schemas are extending each other I suggest you look through the *resources/schema.graphql* files of each Micronaut application. 
 And to see how data for these extended objects are populated you should see through the *GraphQLFactory.class* files of each Micronaut application.
 
+Or you could get some inspiration from this spring boot example [[https://github.com/vinaybedre/java-graphql-federation-starter][java-graphql-federation-starter]] on GitHub from [[https://github.com/vinaybedre][Vinay]].
+
 * Running the demo
 
 You can run the demo using docker-compose or by starting each application your self.
