@@ -1,4 +1,4 @@
-FROM node:14.16-alpine
+FROM node:14.21.0-alpine
 
 COPY package*.json ./
 COPY server.js ./
